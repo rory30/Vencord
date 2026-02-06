@@ -102,14 +102,14 @@ const UserContext: NavContextMenuPatchCallback = (children, { user, guildId }: U
         <Menu.MenuGroup>
             <Menu.MenuItem
                 id="view-avatar"
-                label="بشوف الافتار"
+                label="بشوف البروفايل"
                 action={() => openAvatar(IconUtils.getUserAvatarURL(user, true))}
                 icon={ImageIcon}
             />
             {memberAvatar && (
                 <Menu.MenuItem
                     id="view-server-avatar"
-                    label="بشوف حق السيرفر"
+                    label="افتار السيرفر"
                     action={() => openAvatar(IconUtils.getGuildMemberAvatarURLSimple({
                         userId: user.id,
                         avatar: memberAvatar,
@@ -134,7 +134,7 @@ const GuildContext: NavContextMenuPatchCallback = (children, { guild }: GuildCon
             {icon ? (
                 <Menu.MenuItem
                     id="view-icon"
-                    label=" بشوف السيرفر"
+                    label="ايكون السيرفر"
                     action={() =>
                         openAvatar(IconUtils.getGuildIconURL({
                             id,
@@ -148,7 +148,7 @@ const GuildContext: NavContextMenuPatchCallback = (children, { guild }: GuildCon
             {banner ? (
                 <Menu.MenuItem
                     id="view-banner"
-                    label="بشوف البنر"
+                    label="بنر السيرفر"
                     action={() =>
                         openBanner(IconUtils.getGuildBannerURL(guild, true)!)
                     }
@@ -177,7 +177,7 @@ const GroupDMContext: NavContextMenuPatchCallback = (children, { channel }: Grou
 };
 
 export default definePlugin({
-    name: "تشوف الافتار",
+   name: "تشوف الافتار",
     authors: [{
         name: "rz30",
         id: 786315593963536415n
@@ -213,7 +213,7 @@ export default definePlugin({
         {
             find: 'backgroundColor:"COMPLETE"',
             replacement: {
-                match: /(overflow:"visible",.{0,125}?!1\),)style:{(?=.+?backgroundImage:null!=(\i)\?"url\("\.concat\(\2,)/,
+                match: /(overflow:"visible",.{0,125}?!1\),)style:{(?=.+?backgroundImage:null!=(\i)\?`url\(\$\{\2\}\))/,
                 replace: (_, rest, bannerSrc) => `${rest}onClick:()=>${bannerSrc}!=null&&$self.openBanner(${bannerSrc}),style:{cursor:${bannerSrc}!=null?"pointer":void 0,`
             }
         },
